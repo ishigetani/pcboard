@@ -1,5 +1,9 @@
 <?php
 
+//Ubench.phpの読み込み
+require_once 'Ubench.php';
+$bench = new Ubench();
+
 try {
 
     define('BASE_DIR', dirname(__DIR__));
@@ -26,3 +30,12 @@ try {
 } catch (PDOException $e){
 	echo $e->getMessage();
 }
+
+//処理時間の計測終了
+$bench->end();
+
+//メモリ使用量(memory_get_usage(true))
+var_dump($bench->getMemoryUsage());
+
+//最大値(memory_get_peak_usage(true))
+var_dump($bench->getMemoryPeak());
