@@ -1,0 +1,21 @@
+<ul class="pagination">
+    <?php if($page->current != $page->before): ?>
+        <li><?php echo \Phalcon\Tag::linkTo("users/search?page=".$page->before, "&laquo;") ?></li>
+    <?php else: ?>
+        <li class="disabled"><a>&laquo;</a></li>
+    <?php endif; ?>
+    <?php for($p = 1; $p <= $page->total_pages; $p++): ?>
+        <?php if($p == $page->current): ?>
+            <li class="active"><a><?php echo $p; ?></a></li>
+        <?php else: ?>
+            <li><?php echo \Phalcon\Tag::linkTo("users/search?page=".$p, $p) ?></li>
+        <?php endif; ?>
+    <?php endfor; ?>
+    <?php if($page->current != $page->next): ?>
+        <li><?php echo \Phalcon\Tag::linkTo("users/search?page=".$page->next, "&raquo;") ?></li>
+    <?php else: ?>
+        <li class="disabled"><a>&raquo;</a></li>
+    <?php endif; ?>
+</ul>
+<p><small>You can not use the Next and Before.<br />
+        Because it is a bug in the Phalcon PHP.</small></p>

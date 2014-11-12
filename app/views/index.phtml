@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PCBoard</title>
+        <!-- JQuery -->
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+        <div class="container">
+            <?php $this->flashSession->output() ?>
+            <?php echo $this->getContent(); ?>
+        </div>
+	</body>
+</html>

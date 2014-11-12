@@ -1,0 +1,47 @@
+<?php $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo \Phalcon\Tag::linkTo(array("users/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo \Phalcon\Tag::linkTo(array("users/new", "Create users")); ?>
+        </td>
+    <tr>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Login Of Name</th>
+            <th>Password</th>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Modified</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
+        if(isset($page->items)){
+            foreach($page->items as $users){ ?>
+        <tr>
+            <td><?php echo $users->id ?></td>
+            <td><?php echo $users->login_name ?></td>
+            <td><?php echo $users->password ?></td>
+            <td><?php echo $users->name ?></td>
+            <td><?php echo $users->created ?></td>
+            <td><?php echo $users->modified ?></td>
+            <td>
+                <?php echo \Phalcon\Tag::linkTo(array("users/edit/".$users->id, "Edit", 'class' => 'btn btn-xs btn-info')); ?>
+                <?php echo \Phalcon\Tag::linkTo(array("users/delete/".$users->id, "Delete", 'class' => 'btn btn-xs btn-warning')); ?>
+            </td>
+        </tr>
+    <?php }
+        } ?>
+    </tbody>
+</table>
+
+<?php $this->partial("element/paginate") ?>

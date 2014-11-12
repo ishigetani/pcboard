@@ -1,0 +1,18 @@
+<table width="100%">
+    <tr>
+        <td align="left"><?php echo \Phalcon\Tag::linkTo(array("boards", "Go Back")) ?></td>
+    <tr>
+</table>
+
+<?php echo $this->getContent(); ?>
+
+<div class="col-md-6 col-md-offset-3">
+    <h1>Create boards</h1>
+    <?php echo \Phalcon\Tag::form("boards/create") ?>
+    <div class="form-group">
+        <label for="content">ContentBody</label>
+        <?php echo \Phalcon\Tag::textArea(array("content", "rows" => "5", 'class' => 'form-control')) ?>
+    </div>
+    <?php echo \Phalcon\Tag::submitButton(array("Save", 'class' => 'btn btn-success pull-right')) ?>
+    <?php echo \Phalcon\Tag::endForm() ?>
+</div>

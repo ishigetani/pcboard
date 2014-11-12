@@ -1,0 +1,13 @@
+<?php $this->flashSession->output(); ?>
+
+<?php echo $this->tag->form(array('auth/login', 'class' => 'form-horizontal', 'role' => 'form')); ?>
+
+<label for="email">LoginName</label>
+<?php echo $this->tag->textField(array("login_name", 'class' => 'form-control', 'placeholder' => 'LoginName')) ?>
+
+<label for="password">Password</label>
+<?php echo $this->tag->passwordField(array("password", 'class' => 'form-control', 'placeholder' => 'Password')) ?>
+
+<?php echo $this->tag->submitButton(array('Login', 'class' => 'btn btn-success pull-right')) ?>
+
+</form>

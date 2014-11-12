@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="btn-group pull-right">
+        <?php echo \Phalcon\Tag::linkTo(array("users/search", $my_user['name'], 'class' => 'btn btn-xs btn-link')) ?>
+        <?php echo \Phalcon\Tag::linkTo(array("boards/", "Boards", 'class' => 'btn btn-xs btn-default')) ?>
+        <?php echo \Phalcon\Tag::linkTo(array("auth/logout", "LOGOUT", 'class' => 'btn btn-xs btn-default')) ?>
+    </div>
+</div>
+<?php echo $this->getContent(); ?>
