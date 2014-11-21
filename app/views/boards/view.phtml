@@ -1,0 +1,18 @@
+<?php echo $this->getContent(); ?>
+
+<h3>詳細</h3>
+
+<dl class="dl-horizontal">
+    <dt>ユーザ名</dt>
+    <dd><?php echo $username; ?></dd>
+
+    <dt>本文</dt>
+    <dd><?php echo nl2br($content); ?></dd>
+
+    <?php if (!empty($img_pass)) : ?>
+    <dt>画像</dt>
+    <dd><?php echo $this->tag->image(array("img/". $img_pass, "class" => "img-rounded")); ?></dd>
+    <?php endif; ?>
+</dl>
+
+<?php echo \Phalcon\Tag::linkTo(array("boards/search/", "戻る", 'class' => 'btn btn-xs btn-link')); ?>

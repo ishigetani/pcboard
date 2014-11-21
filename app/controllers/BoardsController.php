@@ -13,6 +13,10 @@ class BoardsController extends AuthBase
     public function searchAction()
 {
         $parameters["order"] = "id";
+        $numberPage = $this->request->getQuery("page", "int");
+        if ($numberPage <= 0) {
+            $numberPage = 1;
+        }
 
         $boards = Boards::find($parameters);
         if (count($boards) == 0) {
@@ -28,6 +32,20 @@ class BoardsController extends AuthBase
         $page = $paginator->getPaginate();
 
         $this->view->setVar("page", $page);
+    }
+
+    public function viewAction($id)
+    {
+        $id = $this->filter->sanitize($id, array("int"));
+
+        $boards = Boards::findFirst('id="'.$id.'"');
+        if (!$boards) {
+            $this->flash->error("boards was not found");
+            return $this->dispatcher->forward(array("controller" => "boards", "action" => "search"));
+        }
+        $this->view->setVar("username", $boards->users->name);
+        $this->view->setVar("content", $boards->content);
+        $this->view->setVar("img_pass", $boards->img_pass);
     }
 
     public function newAction()
@@ -73,12 +91,18 @@ class BoardsController extends AuthBase
         $user = $this->session->get('auth');
         $boards->user_id = $user['id'];
         $boards->content = $this->request->getPost("content");
+        if ($this->request->hasFiles()) {
+            foreach ($this->request->getUploadedFiles() as $file) {
+                $boards->img_pass = $file->getName();
+            }
+        }
         if (!$boards->save()) {
             foreach ($boards->getMessages() as $message) {
                 $this->flash->error((string) $message);
             }
             return $this->dispatcher->forward(array("controller" => "boards", "action" => "new"));
         } else {
+            $file->moveTo(BASE_DIR. '/public/img/' . $file->getName());
             $this->flash->success("boards was created successfully");
             return $this->dispatcher->forward(array("controller" => "boards", "action" => "index"));
         }

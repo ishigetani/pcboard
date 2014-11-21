@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Mvc\Model\Validator\Uniqueness as Uniqueness;
 
 class Boards extends Apps
 {
@@ -16,8 +17,20 @@ class Boards extends Apps
      */
     public $content;
 
+    public $img_pass;
+
     public function initialize()
     {
         $this->belongsTo("user_id", "Users", "id");
+    }
+
+    public function validation()
+    {
+        $this->validate(new Uniqueness(array(
+            'field' => 'img_pass'
+        )));
+        if ($this->validationHasFailed() == true) {
+            return false;
+        }
     }
 }

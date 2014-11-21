@@ -17,6 +17,7 @@
             <th>Id</th>
             <th>User</th>
             <th>Content</th>
+            <th>画像有無</th>
             <th>Created</th>
             <th>Modified</th>
             <th>Action</th>
@@ -30,9 +31,13 @@
             <td><?php echo $boards->id ?></td>
             <td><?php echo $boards->users->name ?></td>
             <td class="col-xs-4"><?php echo nl2br($boards->content) ?></td>
+            <td>
+                <?php echo (!empty($boards->img_pass) ? "○" : "×"); ?>
+            </td>
             <td><?php echo $boards->created ?></td>
             <td><?php echo $boards->modified ?></td>
             <td>
+                <?php echo \Phalcon\Tag::linkTo(array("boards/view/".$boards->id, "View", 'class' => 'btn btn-xs btn-default')); ?>
                 <?php echo \Phalcon\Tag::linkTo(array("boards/edit/".$boards->id, "Edit", 'class' => 'btn btn-xs btn-info')); ?>
                 <?php echo \Phalcon\Tag::linkTo(array("boards/delete/".$boards->id, "Delete", 'class' => 'btn btn-xs btn-warning')); ?>
             </td>
@@ -41,5 +46,24 @@
         } ?>
     </tbody>
 </table>
-
-<?php $this->partial("element/paginate") ?>
+<ul class="pagination">
+    <?php if($page->current != $page->before): ?>
+        <li><?php echo \Phalcon\Tag::linkTo("boards/search?page=".$page->before, "&laquo;") ?></li>
+    <?php else: ?>
+        <li class="disabled"><a>&laquo;</a></li>
+    <?php endif; ?>
+    <?php for($p = 1; $p <= $page->total_pages; $p++): ?>
+        <?php if($p == $page->current): ?>
+            <li class="active"><a><?php echo $p; ?></a></li>
+        <?php else: ?>
+            <li><?php echo \Phalcon\Tag::linkTo("boards/search?page=".$p, $p) ?></li>
+        <?php endif; ?>
+    <?php endfor; ?>
+    <?php if($page->current != $page->next): ?>
+        <li><?php echo \Phalcon\Tag::linkTo("boards/search?page=".$page->next, "&raquo;") ?></li>
+    <?php else: ?>
+        <li class="disabled"><a>&raquo;</a></li>
+    <?php endif; ?>
+</ul>
+<p><small>You can not use the Next and Before.<br />
+        Because it is a bug in the Phalcon PHP.</small></p>
