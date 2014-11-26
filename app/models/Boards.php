@@ -31,7 +31,7 @@ class Boards extends Apps
         $this->validate(new Uniqueness(
             array(
                 "field"   => "img_pass",
-                "message" => "ロボットの名前が重複してはいけません"
+                "message" => "ファイルの名前が重複してはいけません"
             )
         ));
 
