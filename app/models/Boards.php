@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Validator\Uniqueness as Uniqueness;
+use Phalcon\Validation\Validator\PresenceOf as PresenceOf;
 
 class Boards extends Apps
 {
@@ -26,11 +27,14 @@ class Boards extends Apps
 
     public function validation()
     {
-        $this->validate(new Uniqueness(array(
-            'field' => 'img_pass'
-        )));
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
+
+        $this->validate(new Uniqueness(
+            array(
+                "field"   => "img_pass",
+                "message" => "ロボットの名前が重複してはいけません"
+            )
+        ));
+
+        return $this->validationHasFailed() != true;
     }
 }
