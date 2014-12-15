@@ -102,7 +102,9 @@ class BoardsController extends AuthBase
             }
             return $this->dispatcher->forward(array("controller" => "boards", "action" => "new"));
         } else {
-            $file->moveTo(BASE_DIR. '/public/img/' . $file->getName());
+            if ($this->request->hasFiles()) {
+                $file->moveTo(BASE_DIR . '/public/img/' . $file->getName());
+            }
             $this->flash->success("boards was created successfully");
             return $this->dispatcher->forward(array("controller" => "boards", "action" => "index"));
         }
